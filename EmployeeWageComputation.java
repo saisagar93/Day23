@@ -1,48 +1,60 @@
-class EmpWageSalary {
-        //constant
-        public static final int IS_FULL_TIME = 1;
-        public static final int IS_PART_TIME = 2;
+public class EmployeeWageComputation						//Main class
+{
+	//Constants
+        public static final int FULL_TIME=1;
+        public static final int PART_TIME=2;
+        public String company;
+        public int empRatePerHr;
+        public int numOfWorkingDays;
+        public int maxWorkingHrs;
 
-        public void empSalary(String company, int empRatePerHr, int numberOfWorkingDays, int maxHrPerMonth ) 
-                   {
-                                //variables
-				int empHrs = 0;
-				int totalEmpHrs = 0;
-				int totalWorkingDays = 0;
-				while (totalEmpHrs <= maxHrPerMonth && totalWorkingDays < numberOfWorkingDays) 
-                                 {
-					totalWorkingDays++;
-					double empCheck = Math.floor(Math.random() * 10) % 3;
-                                 //Switchcase
-			        switch ((int)empCheck)
-                                {
-                                case IS_FULL_TIME :
-                                        empHrs = 8;
-                                        break;
-                                case IS_PART_TIME :
-                                        empHrs = 4;
-                                        break;
-                                default :
-                                        empHrs = 0;
+        public EmployeeWageComputation(String company,int empRatePerHr,int numOfWorkingDays,int maxWorkingHrs)//constuctor
+        {
+                this.company=company;
+                this.empRatePerHr=empRatePerHr;
+                this.numOfWorkingDays=numOfWorkingDays;
+                this.maxWorkingHrs=maxWorkingHrs;
+        }
+        public void computeEmpWage()						//Compute method
+        {
+                int empHrs=0;
+                int totalEmpWage=0;
+                int empWage=0;
+                int totalEmpHrs=0;
+                int totalWorkingDays=0;
 
-                                }
-						totalEmpHrs += empHrs;
-						System.out.println(totalWorkingDays+" "+totalEmpHrs);
-				}
+                while(totalEmpHrs<=maxWorkingHrs && totalWorkingDays<=numOfWorkingDays)
+                {
+                        totalWorkingDays++;
+                        int empCheck=(int)Math.floor(Math.random()*10)%3;
 
-                        int totalEmpWage = totalEmpHrs * empRatePerHr;
-                        System.out.println(company+" "+totalEmpWage);
+                        switch(empCheck)
+                        {
+                                case FULL_TIME:
+                                empHrs=8;
+                                break;
 
-        }//empSalary()
-}
-  public class EmployeeWageComputation
-      {
+                                case PART_TIME:
+                                empHrs=4;
+                                break;
 
-        public static void main(String[] args) 
-           {
-		System.out.println("Welcome To Compute Wage Problrem");
-                EmpWageSalary empWage = new EmpWageSalary();
-                empWage.empSalary("Realiance", 20, 20, 100);
-		empWage.empSalary("HDFC", 50, 20, 100);
-           }
+                                default:
+                                empHrs=0;
+                        }
+                        totalEmpHrs+=empHrs;
+                }
+                totalEmpWage=totalEmpHrs*empRatePerHr;
+                System.out.println("Company: "+company+" Total Employee Wage: "+totalEmpWage);	//Total employee wage
+
+        }
+
+        public static void main(String[] args)						//Main method
+        {
+                EmployeeWageComputation dmart=new EmployeeWageComputation("Dmart",12,34,56);
+                EmployeeWageComputation realiance=new EmployeeWageComputation("realiance",22,44,16);
+                EmployeeWageComputation deloitte=new EmployeeWageComputation("Deloitte",62,44,26);
+                dmart.computeEmpWage();
+                realiance.computeEmpWage();
+                deloitte.computeEmpWage();
+        }
 }
