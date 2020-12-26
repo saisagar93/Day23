@@ -1,20 +1,20 @@
-import java.util.LinkedList;							//Linked list package
-import java.util.HashMap;							//Hash map package
+import java.util.LinkedList;								//Linked list package
+import java.util.HashMap;
 
-interface IEmployeeWageComputation						//Interface method
+interface IEmployeeWageComputation							//Interface method
 {
         public void addCompanyWage(String company,int empRatePerHr, int numOfWorkingDays, int maxWorkingHrs);
         public void computeEmpWage();
 }
-	
-class EmployeeWageComputation implements IEmployeeWageComputation		//Main class
+
+class EmployeeWageComputation implements IEmployeeWageComputation			//Main class
 {
         public static final int FULL_TIME=1;
         public static final int PART_TIME=2;
 
         public LinkedList<CompanyWage> companyWageArray;
         public HashMap<String,CompanyWage> companyToEmpWageMap;
-        public EmployeeWageComputation()					//constructo for Linked list and Hash map
+        public EmployeeWageComputation()
         {
                 companyWageArray=new LinkedList<>();
                 companyToEmpWageMap=new HashMap<>();
@@ -36,6 +36,10 @@ class EmployeeWageComputation implements IEmployeeWageComputation		//Main class
                         System.out.println(companyName);
                 }
         }
+        public int getTotalWage(String company)
+        {
+                return companyToEmpWageMap.get(company).totalEmpWage;
+        }
 
         public int computeEmpWage(CompanyWage companyEmpWage)				//Method to compute total employee wages
         {
@@ -43,6 +47,7 @@ class EmployeeWageComputation implements IEmployeeWageComputation		//Main class
                 int empWage=0;
                 int totalEmpHrs=0;
                 int totalWorkingDays=0;
+
                 while(totalEmpHrs<=companyEmpWage.maxWorkingHrs && totalWorkingDays<=companyEmpWage.numOfWorkingDays)
                 {
                         totalWorkingDays++;
@@ -66,24 +71,25 @@ class EmployeeWageComputation implements IEmployeeWageComputation		//Main class
                 return totalEmpHrs*companyEmpWage.empRatePerHr;
         }
 
-        public static void main(String[] args)						//Main method
+        public static void main(String[] args)				//Main method
         {
                 EmployeeWageComputation builder=new EmployeeWageComputation();
-                builder.addCompanyWage("Dmart",12,34,56);
+                builder.addCompanyWage("DMart",12,34,56);
                 builder.addCompanyWage("Reliance",22,14,26);
 		builder.addCompanyWage("Deloitte",62,44,26);
                 builder.computeEmpWage();
+                System.out.println("Total Wage for DMart company: "+builder.getTotalWage(("DMart")));	//Employee total wage when queries by company
         }
 }
 
-class CompanyWage									//class for variables of a company								
+class CompanyWage
 {
         public String company;
         public int empRatePerHr;
         public int numOfWorkingDays;
         public int maxWorkingHrs;
         public int totalEmpWage;
-        public CompanyWage(String company,int empRatePerHr,int numOfWorkingDays,int maxWorkingHrs)
+        public CompanyWage(String company,int empRatePerHr,int numOfWorkingDays,int maxWorkingHrs)	
         {
                 this.company=company;
                 this.empRatePerHr=empRatePerHr;
@@ -91,7 +97,7 @@ class CompanyWage									//class for variables of a company
                 this.maxWorkingHrs=maxWorkingHrs;
                 totalEmpWage=0;
         }
-        public void setTotalEmpWage(int totalEmpWage)					//Set method for total employee wage
+        public void setTotalEmpWage(int totalEmpWage)			//Set method for total employee wage
         {
                 this.totalEmpWage=totalEmpWage;
         }
