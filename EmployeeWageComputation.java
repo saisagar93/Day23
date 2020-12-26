@@ -1,6 +1,6 @@
 public class EmployeeWageComputation						//Main class
 {
-	public static void main(String[] args)					//Main method
+	public static void main(String[] args)
 	{
 		System.out.println("Welcome to employee wage computation");
 		int present=1;
