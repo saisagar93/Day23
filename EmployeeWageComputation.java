@@ -10,25 +10,32 @@ public class EmployeeWageComputation
 	{
 
 		System.out.println("Welcome to employee wage computation");
-		//variables
+		//Variables
 		int empHrs=0;
-		int salary=0;
-		int empCheck=(int)Math.floor(Math.random()*10)%3;		//To generate a random valueof 0 to 2
+		int totalEmpWage=0;
+		int empWage=0;
 
-		switch(empCheck)						//switch case for employee fulltime,parttime and absent 
+		for(int day=0;day<NUM_OF_WORKING_DAYS;day++)			//for loop for 20 working days
 		{
-			case FULL_TIME:
-			empHrs=8;
-			break;
+			int empCheck=(int)Math.floor(Math.random()*10)%3;	//To generate a random valueof 0 to 2
 
-			case PART_TIME:
-			empHrs=4;
-			break;
+			switch(empCheck)					//switch case for employee fulltime,parttime and absent 
+			{
+				case FULL_TIME:
+				empHrs=8;
+				break;
 
-			default:
-			empHrs=0;
+				case PART_TIME:
+				empHrs=4;
+				break;
+
+				default:
+				empHrs=0;
+			}
+			empWage=empHrs*EMP_RATE_PER_HR;				//salary of an employee for a day
+			totalEmpWage+=empWage;
 		}
-		salary=empHrs*EMP_RATE_PER_HR;					//salary of an employee
-                System.out.println("Employee Wage: "+salary);
+
+		System.out.println("Total Employee Wage: "+totalEmpWage);	//salary for a month
 	}
 }
